@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💖 20/10 - Mẹ Huyền & Em Gái 💖</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 50%, #fbc2eb 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow-x: hidden;
+            padding: 30px 20px;
+        }
+
+        /* Nền sao sáng */
+        .stars {
+            position: fixed;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        @keyframes twinkle {
+            0% {opacity: 0.3; transform: scale(0.8);}
+            100% {opacity: 1; transform: scale(1.3);}
+        }
+
+        /* Khung chính */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Thiệp chính */
+        .card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 50px rgba(180, 40, 100, 0.35);
+            text-align: center;
+            animation: fadeIn 1.5s ease forwards;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(30px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .heart-big {
+            font-size: 70px;
+            animation: pulse 1.2s infinite alternate;
+            margin-bottom: 15px;
+        }
+        @keyframes pulse {
+            from {transform: scale(1);}
+            to {transform: scale(1.15);}
+        }
+
+        h1 {
+            color: #c2185b;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .sub-title {
+            font-size: 22px;
+            color: #ad1457;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+        .divider {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff80ab, #ff4081);
+            border-radius: 2px;
+            margin: 0 auto 25px;
+        }
+        .photo-box {
+            width: 260px;
+            height: 190px;
+            border-radius: 16px;
+            border: 4px solid #f8bbd0;
+            overflow: hidden;
+            margin: 0 auto 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .message-text {
+            font-size: 17px;
+            line-height: 2;
+            color: #555;
+            min-height: 200px;
+            text-align: left;
+        }
+        .name-highlight {
+            color: #c2185b;
+            font-weight: bold;
+            font-size: 19px;
+        }
+        .signature {
+            margin-top: 20px;
+            font-style: italic;
+            color: #888;
+            text-align: right;
+        }
+        .btn {
+            margin-top: 25px;
+            padding: 14px 36px;
+            font-size: 18px;
+            background: linear-gradient(135deg, #ec407a, #d81b60);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(216, 27, 96, 0.35);
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+        .hint {
+            margin-top: 15px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        /* Hoa & trái tim rơi */
+        .petal, .heart-fly {
+            position: fixed;
+            pointer-events: none;
+            z-index: 2;
+            font-size: 25px;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% {transform: translateY(-10vh) rotate(0deg); opacity: 1;}
+            100% {transform: translateY(110vh) rotate(720deg); opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+    <!-- Nền sao sáng -->
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <div class="heart-big">💝</div>
+        <h1>🌸 Ngày 20/10 🌸</h1>
+        <p class="sub-title">Gửi Mẹ Huyền & Em Gái yêu dấu ❤️</p>
+        
+        <div class="card">
+            <h2 style="color:#c2185b; font-size:24px;">💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 💐</h2>
+            <div class="divider"></div>
+
+            <div class="photo-box">
+                <img src="anh-gia-dinh.jpg" alt="Gia đình yêu thương" id="familyPhoto">
+            </div>
+
+            <p class="message-text" id="msgArea"></p>
+
+            <p class="signature">
+                Với tất cả tình yêu thương chân thành 💗<br>
+                Con/anh của gia đình
+            </p>
+        </div>
+
+        <button class="btn" onclick="recreateEffects()">✨ Tạo thêm hoa & trái tim</button>
+        <p class="hint">💡 Chữ sẽ hiện ra từ từ như thư viết tay nhé 💌</p>
+    </div>
+
+<script>
+// ========== LỜI CHÚC ==========
+const NOI_DUNG = `Kính gửi <span class="name-highlight">Mẹ Huyền</span> yêu kính! 💐
+
+Ngày hôm nay, con muốn nói với mẹ rằng:
+Mẹ là người phụ nữ tuyệt vời nhất trong đời con.
+Cảm ơn mẹ đã nuôi nấng, chở che, yêu thương con và em không ngại khó khăn.
+Chúc mẹ mãi khỏe mạnh, tươi trẻ, bình an và hạnh phúc.
+Mẹ mãi là ngọn đèn soi đường cho chúng con! ❤️
+
+Gửi <span class="name-highlight">Em Gái</span> của anh! 🌷
+
+Chúc em ngày 20/10 thật vui, rạng rỡ như hoa nở mùa xuân.
+Luôn học hành tiến bộ, gặp nhiều điều hay và nở nụ cười mỗi ngày.
+Anh sẽ luôn bên em, che chở và yêu em! ✨
+
+Yêu hai người thật nhiều! 💖`;
+
+// Gõ chữ từng chữ
+const msgArea = document.getElementById('msgArea');
+let charIndex = 0;
+function typeWriter() {
+    if (charIndex < NOI_DUNG.length) {
+        msgArea.innerHTML = NOI_DUNG.substring(0, charIndex + 1);
+        charIndex++;
+        setTimeout(typeWriter, 60);
+    }
+}
+// Bắt đầu ngay
+setTimeout(typeWriter, 300);
+
+// Hoa & trái tim rơi
+const hoa = ['🌸','🌷','🌹','🌻','💐','🌺','💖','💕','💗','💓','💝','❤️'];
+function taoHoaRoi() {
+    const el = document.createElement('div');
+    el.className = Math.random() > 0.5 ? 'petal' : 'heart-fly';
+    el.innerText = hoa[Math.floor(Math.random() * hoa.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.top = '-5vh';
+    el.style.animationDuration = (6 + Math.random() * 5) + 's';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 12000);
+}
+setInterval(taoHoaRoi, 400);
+function recreateEffects() { 
+    for(let i = 0; i < 30; i++) setTimeout(taoHoaRoi, i * 50); 
+}
+
+// Nền sao sáng
+const starsContainer = document.getElementById('stars');
+for(let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.width = s.style.height = (1 + Math.random() * 2.5) + 'px';
+    s.style.animationDelay = Math.random() * 2 + 's';
+    starsContainer.appendChild(s);
+}
+</script>
+</body>
+</html>
